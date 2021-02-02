@@ -26,6 +26,7 @@ public class UserController {
         UserModel user=new UserModel();
 
         //Setting params
+        //since it auto generated
 //        user.setId(userName);
         user.setFirstName(firstName);
         user.setMobileNumber(mobileNumber);
@@ -59,7 +60,8 @@ public class UserController {
     }
 
     @PutMapping(path = "/user")
-    public String updateByID(Integer id){
+    public @ResponseBody
+    String updateByID(@RequestParam Integer id){
         if(!userInterface.findById(id).isPresent())
             return "User does not exist";
 
