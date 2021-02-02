@@ -45,8 +45,16 @@ public class UserController {
             {
                 return "User Already exists";
             }
+            else
+            {
+                userInterface.save(user);
+                String response="User added at"+user.getId();
+                return response;
+            }
         }
 
+        //setting userId since it doesnot exists
+        user.setId(userName);
         //Adding to Db
         userInterface.save(user);
 
