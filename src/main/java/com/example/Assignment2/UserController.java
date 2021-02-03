@@ -1,5 +1,6 @@
 package com.example.Assignment2;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,8 +9,8 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    @Autowired
     private UserInterface userInterface;
-    private UserInterface userInterface1;
 
     //post mapping and requesting parameters
     @PostMapping(path = "/user")
