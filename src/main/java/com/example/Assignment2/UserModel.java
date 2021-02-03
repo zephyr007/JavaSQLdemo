@@ -14,7 +14,7 @@ import lombok.Setter;
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer Id;
 
     @NotNull
@@ -59,9 +59,9 @@ public class UserModel {
 //        return Id;
 //    }
 //
-//    public void setId(Integer id) {
-//        Id = id;
-//    }
+    public void setId(Integer id) {
+        Id = id;
+    }
 //
 //    public String getFirstName() {
 //        return firstName;
