@@ -12,8 +12,30 @@ public class UserController {
     @Autowired
     private UserInterface userInterface;
 
-    //post mapping and requesting parameters
     @PostMapping(path = "/user")
+    public @ResponseBody
+    String addUser(@RequestBody UserModel user){
+
+        if(userInterface.findById(user.getId()).isPresent()) {
+            UserModel user2=userInterface.findById(user.getId()).get();
+            String emailID=user.getEmailID();
+            String mobileNo=user.getMobileNumber();
+            if (user2.getEmailID().equals(emailID)||user2.getMobileNumber().equals(mobileNo))
+            {
+                return "User Already Exists "+"at "+user.getId();
+            }
+            else
+            {
+                userInterface.save(user);
+                return "User Added at Different UserName "+user.getId();
+            }
+        }
+        userInterface.save(user);
+        return "User Added at"+user.getId();
+    }
+
+    //post mapping and requesting parameters
+    @PostMapping(path = "/userParams")
     public @ResponseBody
     String addUser(@RequestParam Integer userName,
                                         @RequestParam String firstName,
