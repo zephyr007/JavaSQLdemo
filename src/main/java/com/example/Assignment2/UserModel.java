@@ -1,28 +1,41 @@
 package com.example.Assignment2;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 public class UserModel {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer Id;
 
+    @NotNull
+    @Column(name = "FirstName")
     public String firstName;
+
+    @NotNull
+    @Column(name = "LastName")
     public String lastName;
+
+    @NotNull
+    @Column(name = "MobileNumber")
     public String mobileNumber;
+
+    @NotNull
+    @Column(name = "EmailID")
     public String emailID;
+
+    @Column(name = "address1")
     public String address1;
+    @Column(name = "address2")
     public String address2;
 
 //    public UserModel(String userName, String firstName, String lastName, String mobileNumber, String emailID, String address1, String address2) {

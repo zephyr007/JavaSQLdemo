@@ -78,6 +78,7 @@ public class UserController {
             }
             else
             {
+//                user.setId(userName);
                 userInterface.save(user);
                 String response = "User added at" + user.getId() + ("UserName " + user.getId() + " Already Used, prev Email ID: " + user2.getEmailID() + " :: New emailID: " + emailID);
                 return response;
