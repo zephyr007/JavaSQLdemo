@@ -41,15 +41,23 @@ public class UserController {
 
         Optional<UserModel> user1=userInterface.findById(userName);
         if(user1.isPresent()){
+            System.out.println("User Already exists at"+userName);
             UserModel user2=user1.get();
-            if(user2.getEmailID()==emailID || user2.getMobileNumber()==mobileNumber)
+            System.out.println("Email ID: " +user2.getEmailID() +" :: New emailID: "+emailID);
+            if(user2.getEmailID().equals(emailID))
             {
-                return "User Already exists";
+                String response="User added at "+user.getId()+"prev Email ID: " +user2.getEmailID() +" :: New emailID: "+emailID;
+                return response;
+            }
+            else if(user2.getMobileNumber().equals(mobileNumber))
+            {
+                String response="User added at "+user.getId()+"prev phone no: " +user2.getMobileNumber() +" :: New phoneNO: "+mobileNumber;
+                return response;
             }
             else
             {
                 userInterface.save(user);
-                String response="User added at"+user.getId();
+                String response = "User added at" + user.getId() + ("UserName " + user.getId() + " Already Used, prev Email ID: " + user2.getEmailID() + " :: New emailID: " + emailID);
                 return response;
             }
         }
@@ -64,14 +72,20 @@ public class UserController {
 
     @GetMapping(path = "/user")
     public @ResponseBody
-    Optional<UserModel> getUser(@RequestParam Integer id){
-        return userInterface.findById(id);
+    Optional<UserModel> getUser(@RequestParam Integer userName){
+        return userInterface.findById(userName);
+    }
+
+    @GetMapping(path = "/allUsers")
+    public @ResponseBody
+    Iterable<UserModel> getAll(){
+        return userInterface.findAll();
     }
 
     @PutMapping(path = "/user")
     public @ResponseBody
-    String updateByID(@RequestParam Integer id){
-        if(!userInterface.findById(id).isPresent())
+    String updateByID(@RequestParam Integer userName){
+        if(!userInterface.findById(userName).isPresent())
             return "User does not exist";
 
         //update user info here
@@ -82,10 +96,10 @@ public class UserController {
 
     @DeleteMapping(path = "/user")
     public @ResponseBody
-    String delByID(@RequestParam Integer id){
-        if(!userInterface.findById(id).isPresent())
+    String delByID(@RequestParam Integer userName){
+        if(!userInterface.findById(userName).isPresent())
             return "User Id Invalid";
-        userInterface.deleteById(id);
+        userInterface.deleteById(userName);
         return "User Deleted";
     }
 
