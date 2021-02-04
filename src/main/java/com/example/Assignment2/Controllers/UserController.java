@@ -1,5 +1,7 @@
-package com.example.Assignment2;
+package com.example.Assignment2.Controllers;
 
+import com.example.Assignment2.Models.UserModel;
+import com.example.Assignment2.Service.UserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
