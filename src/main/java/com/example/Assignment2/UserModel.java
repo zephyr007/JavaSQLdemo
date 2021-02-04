@@ -4,11 +4,15 @@ import javax.persistence.*;
 
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class UserModel {
@@ -37,6 +41,17 @@ public class UserModel {
     public String address1;
     @Column(name = "address2")
     public String address2;
+
+    public void SetValues(UserModel userWithoutID){
+        this.Id=userWithoutID.getId();
+        this.firstName = userWithoutID.getFirstName();
+        this.lastName = userWithoutID.getLastName();
+        this.mobileNumber = userWithoutID.getMobileNumber();
+        this.emailID = userWithoutID.getEmailID();
+        this.address1 = userWithoutID.getAddress1();
+        this.address2 = userWithoutID.getAddress2();
+
+    }
 
 //    public UserModel(String userName, String firstName, String lastName, String mobileNumber, String emailID, String address1, String address2) {
 //        this.userName = userName;

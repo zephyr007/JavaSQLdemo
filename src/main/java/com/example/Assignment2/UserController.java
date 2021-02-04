@@ -105,13 +105,19 @@ public class UserController {
         return userInterface.findAll();
     }
 
+
+
     @PutMapping(path = "/user")
     public @ResponseBody
-    String updateByID(@RequestParam Integer userName){
-        if(!userInterface.findById(userName).isPresent())
+    String updateByID(@RequestBody UserModel userModel){
+        if(!userInterface.findById(userModel.getId()).isPresent())
             return "User does not exist";
 
         //update user info here
+        UserModel n=userInterface.findById(userModel.getId()).get();
+        n.SetValues(userModel);
+
+        userInterface.save(n);
 
         return "User updated";
     }
