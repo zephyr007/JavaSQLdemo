@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class WalletController {
 
     @Autowired
-    private WalletInterface walletInterface;
+    public WalletInterface walletInterface;
 
     @PostMapping
     public @ResponseBody
@@ -22,9 +22,9 @@ public class WalletController {
             return null;
         }
 
-        Wallet wallet=new Wallet(phoneNo);
-//        wallet.setWalletId(phoneNo);
-//        wallet.setAmount(0);
+        Wallet wallet=new Wallet();
+        wallet.setWalletId(phoneNo);
+        wallet.setAmount(100);
 
         System.out.println("Wallet created for "+phoneNo);
         return walletInterface.save(wallet);
@@ -34,6 +34,17 @@ public class WalletController {
     public @ResponseBody
     Iterable<Wallet> getAll(){
         return walletInterface.findAll();
+    }
+
+    @PutMapping
+    public Wallet addBalance(@RequestParam Long phoneNo,@RequestParam int bal){
+        System.out.println("PUT Wallet API ");
+        if(!walletInterface.findById(phoneNo).isPresent()){
+            System.out.println("Wallet doesn`t exist");
+        }
+        Wallet wallet=walletInterface.findById(phoneNo).get();
+        wallet.setAmount(wallet.getAmount()+bal);
+        return walletInterface.save(wallet);
     }
 
 }

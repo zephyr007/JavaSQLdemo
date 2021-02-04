@@ -18,7 +18,7 @@ import lombok.Setter;
 public class UserModel {
 
     @Id
-//    @GeneratedValue(strategy=GenerationType.AUTO)
+//    "0baa699c-1524-4033-b67e-de931cc98e8f"
     private Integer Id;
 
     @NotNull
