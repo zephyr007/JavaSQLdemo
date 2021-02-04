@@ -3,6 +3,7 @@
 ## Java CRUD API
 
 REST application of user management using Spring Boot and Spring Data. This application will perform basic CRUD(Create, Read , Update , Delete) operations on the User table.
+
 1.API which will create a user in the user table.
 url:http://localhost:8080/user
 METHOD : POST
