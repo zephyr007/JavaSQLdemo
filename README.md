@@ -40,7 +40,6 @@ Next Module:
 
 ## 2.Wallet Management
 
-
 1. Create Wallet: API which will create wallet for a user
 url:http://localhost:8080/wallet
 METHOD : POST
