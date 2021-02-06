@@ -2,7 +2,7 @@
 
 ## 1.Java CRUD API
 
-REST application of user management using Spring Boot and Spring Data. This application will perform basic CRUD(Create, Read , Update , Delete) operations on the User table.
+```REST application of user management using Spring Boot and Spring Data. This application will perform basic CRUD(Create, Read , Update , Delete) operations on the User table.
 
 1.API which will create a user in the user table.
 url:http://localhost:8080/user
@@ -27,20 +27,21 @@ requestParam: userID
 validation: user should exist
 
 Hint:
-sample link https://www.journaldev.com/17034/spring-data-jpa
-
+sample link https://www.journaldev.com/17034/spring-data-jpa```
+```
 Expectations:
 =============
-Flow Diagram in UML
+
+```Flow Diagram in UML
 Schema Design
 Workable Code with proper comment
+```
 
-Next Module:
-=============
+
 
 ## 2.Wallet Management
 
-1. Create Wallet: API which will create wallet for a user
+```1. Create Wallet: API which will create wallet for a user
 url:http://localhost:8080/wallet
 METHOD : POST
 input: phone number
@@ -61,11 +62,14 @@ Note : this api should return in a pagination way.
 4.Transaction Status
 url:http://localhost:8080/transaction?txnId=<txnID>
 Method :GET
-Validation: TransactionId should exists
+Validation: TransactionId should exists```
 
+```
 Expectations:
 =============
+```
 Flow Diagram in UML
 Schema Design
 Code with proper comment
 Junit Test cases
+```
