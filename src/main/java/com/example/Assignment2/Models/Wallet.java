@@ -20,20 +20,19 @@ public class Wallet {
     @Id
     public Long walletId;
     public int amount;
-    public static ArrayList<UUID> TransactionList;
 
 
     public Wallet(Long walletId){
         this.walletId=walletId;
         this.amount=0;
-        TransactionList=new ArrayList<UUID>();
+//        TransactionList=new ArrayList<UUID>();
     }
 
-    public void addTxn(UUID txnId){
-        if(txnId!=null) {
-            this.TransactionList.add(txnId);
-        }
-    }
+//    public void addTxn(UUID txnId){
+//        if(txnId!=null) {
+//            this.TransactionList.add(txnId);
+//        }
+//    }
 
     public Long getWalletId() {
         return walletId;

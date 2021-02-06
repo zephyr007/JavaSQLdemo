@@ -1,7 +1,7 @@
 package com.example.Assignment2.Controllers;
 
 import com.example.Assignment2.Models.UserModel;
-import com.example.Assignment2.Service.UserInterface;
+import com.example.Assignment2.Repository.UserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +16,30 @@ public class UserController {
 
     @PostMapping(path = "/user")
     public @ResponseBody
-    String addUser(@RequestBody UserModel user){
-
+    UserModel addUser(@RequestBody UserModel user){
+        System.out.println("User POST API");
         if(userInterface.findById(user.getId()).isPresent()) {
             UserModel user2=userInterface.findById(user.getId()).get();
             String emailID=user.getEmailID();
             String mobileNo=user.getMobileNumber();
             if (user2.getEmailID().equals(emailID)||user2.getMobileNumber().equals(mobileNo))
             {
-                return "User Already Exists "+"at "+user.getId();
+                String res="User Already Exists "+"at "+user.getId();
+                System.out.println(res);
+                return null;
             }
             else
             {
                 userInterface.save(user);
-                return "User Added at Different UserName "+user.getId();
+                String res="User Added at Different UserName "+user.getId();
+                System.out.println(res);
+                return user;
             }
         }
         userInterface.save(user);
-        return "User Added at"+user.getId();
+        String res= "User Added at"+user.getId();
+        System.out.println(res);
+        return user;
     }
 
     //post mapping and requesting parameters
@@ -98,12 +104,14 @@ public class UserController {
     @GetMapping(path = "/user")
     public @ResponseBody
     Optional<UserModel> getUser(@RequestParam Integer userName){
+        System.out.println("User GET API Called");
         return userInterface.findById(userName);
     }
 
     @GetMapping(path = "/allUsers")
     public @ResponseBody
     Iterable<UserModel> getAll(){
+        System.out.println("User GET ALL API");
         return userInterface.findAll();
     }
 
@@ -111,9 +119,13 @@ public class UserController {
 
     @PutMapping(path = "/user")
     public @ResponseBody
-    String updateByID(@RequestBody UserModel userModel){
+    UserModel updateByID(@RequestBody UserModel userModel){
         if(!userInterface.findById(userModel.getId()).isPresent())
-            return "User does not exist";
+        {
+            String res="User does not exist";
+            System.out.println(res);
+            return null;
+        }
 
         //update user info here
         UserModel n=userInterface.findById(userModel.getId()).get();
@@ -121,7 +133,9 @@ public class UserController {
 
         userInterface.save(n);
 
-        return "User updated";
+        String res1 = "User updated";
+        System.out.println(res1);
+        return n;
     }
 
 
@@ -129,9 +143,15 @@ public class UserController {
     public @ResponseBody
     String delByID(@RequestParam Integer userName){
         if(!userInterface.findById(userName).isPresent())
-            return "User Id Invalid";
+        {
+            String res= "User Id Invalid";
+            System.out.println(res);
+            return res;
+        }
         userInterface.deleteById(userName);
-        return "User Deleted";
+        String res="User Deleted";
+        System.out.println(res);
+        return res;
     }
 
 }

@@ -1,7 +1,8 @@
 package com.example.Assignment2.Controllers;
 
 import com.example.Assignment2.Models.Wallet;
-import com.example.Assignment2.Service.WalletInterface;
+import com.example.Assignment2.Repository.WalletInterface;
+import com.example.Assignment2.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 public class WalletController {
 
     @Autowired
-    public WalletInterface walletInterface;
+    public WalletService walletInterface;
 
     @PostMapping
     public @ResponseBody
     Wallet createWallet(@RequestParam Long phoneNo){
-        System.out.println("Wallet API called");
+        System.out.println("Wallet POST API called");
         if(walletInterface.findById(phoneNo).isPresent())
         {
             System.out.println("Wallet Already exists for "+phoneNo);
@@ -33,12 +34,14 @@ public class WalletController {
     @GetMapping
     public @ResponseBody
     Iterable<Wallet> getAll(){
+
+        System.out.println("Wallet Get API Called");
         return walletInterface.findAll();
     }
 
     @PutMapping
     public Wallet addBalance(@RequestParam Long phoneNo,@RequestParam int bal){
-        System.out.println("PUT Wallet API ");
+        System.out.println("PUT Wallet API");
         if(!walletInterface.findById(phoneNo).isPresent()){
             System.out.println("Wallet doesn`t exist");
         }

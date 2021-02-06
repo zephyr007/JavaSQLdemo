@@ -3,30 +3,30 @@ package com.example.Assignment2.Controllers;
 import com.example.Assignment2.Models.Trans;
 import com.example.Assignment2.Models.TransWithoutID;
 import com.example.Assignment2.Models.Wallet;
-import com.example.Assignment2.Service.TransInterface;
-import com.example.Assignment2.Service.WalletInterface;
-import javassist.bytecode.Descriptor;
+import com.example.Assignment2.Repository.WalletInterface;
+import com.example.Assignment2.Service.TransService;
+import com.example.Assignment2.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.UUID;
 
 @Controller
 public class TransController{
 
     @Autowired
-    private TransInterface transInterface;
+    public TransService transService;
 
     @Autowired
-    private WalletInterface walletInterface;
+    private WalletService walletInterface;
 
     @PostMapping(path = "/transaction")
     public @ResponseBody
     Trans makeTxn(@RequestBody TransWithoutID transWithoutID){
         /*** Transaction Verification Steps**/
+        System.out.println("Transaction API");
         if(!walletInterface.findById(transWithoutID.getPayee_phone_number()).isPresent()){
             System.out.println("payee wallet doesn`t exits");
             return null;
@@ -49,57 +49,60 @@ public class TransController{
 
         walletpayer.setAmount(walletpayer.getAmount()-transWithoutID.getAmount());
         walletpayee.setAmount(walletpayee.getAmount()+transWithoutID.getAmount());
-//        walletpayee.addTxn(trans.getTxnId());
-//        walletpayer.addTxn(trans.getTxnId());
 
         walletInterface.save(walletpayee);
         walletInterface.save(walletpayer);
 
-
-        return transInterface.save(trans);
+        System.out.println("Transaction Added");
+        return transService.feedInDB(trans);
     }
 
     @GetMapping(path = "/transaction")
     public @ResponseBody
     Iterable<Trans> getAllTrans(){
-        return transInterface.findAll();
+        System.out.println("Get ALL Transaction API");
+        return transService.getAll();
     }
 
     @GetMapping(path = "/transactionStatus")
     public @ResponseBody
-    String checkTxnStatus(@RequestParam Integer TxnId){
-        if(transInterface.findById(TxnId).isPresent()){
+    Trans checkTxnStatus(@RequestParam Integer TxnId){
+        System.out.println("Transaction Status API");
+        if(transService.getTxn(TxnId).isPresent()){
             String res="";
-            Trans trans=transInterface.findById(TxnId).get();
+            Trans trans= transService.getTxn(TxnId).get();
             res+="Transaction Succesful ID:"+trans.getTxnId()+" payer: "+trans.getPayer()+" payee: "+trans.getPayee()+" amount: "+trans.getAmount();
-            return res;
+            System.out.println(res);
+            return trans;
         }
-        return "Txn Failed or Doesn`t exists";
+        return null;
     }
 
     @GetMapping(path = "/transactionsBy")
     public @ResponseBody
     ArrayList<Trans> getAlltrans(@RequestParam Long userId){
-        System.out.println("Transaction Summary API");
+        System.out.println("Transaction Summary of "+userId);
         if(!walletInterface.findById(userId).isPresent()){
             System.out.println("User does not exits");
             return null;
         }
         ArrayList<Trans> list=new ArrayList<Trans>();
 
-//        Itrating through these items
+////        Iterating through these items
+//        Iterable<Trans> transIterable=tranService.findAll();
+//        Iterator<Trans> itr=transIterable.iterator();
+//        while (itr.hasNext()){
+//            Trans added= itr.next();
+//            if(added.getPayer().equals(userId))
+//            {
+////                Trans added= itr.next();
+//                System.out.println("Txn Added "+added.getPayer()+" to "+added.getPayee()+" amount:"+added.getAmount());
+//                list.add(added);
+//            }
+//        }
 
-        Iterable<Trans> transIterable=transInterface.findAll();
-        Iterator<Trans> itr=transIterable.iterator();
-        while (itr.hasNext()){
-            Trans added= itr.next();
-            if(added.getPayer().equals(userId))
-            {
-//                Trans added= itr.next();
-                System.out.println("Txn Added "+added.getPayer()+" to "+added.getPayee()+" amount:"+added.getAmount());
-                list.add(added);
-            }
-        }
+        list.addAll(transService.findByPayee(userId));
+        list.addAll(transService.findByPayer(userId));
         System.out.println("Size of transactions by user"+list.size());
 
         return list;
