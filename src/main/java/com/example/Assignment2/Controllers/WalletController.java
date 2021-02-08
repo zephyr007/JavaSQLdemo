@@ -10,27 +10,34 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/wallet")
 public class WalletController {
 
+    //Using Service to interact with Db
     @Autowired
     public WalletService walletInterface;
 
+    //Creatig Wallet API
     @PostMapping
     public @ResponseBody
     Wallet createWallet(@RequestParam Long phoneNo){
         System.out.println("Wallet POST API called");
+
+        //Check if it already exists
         if(walletInterface.findById(phoneNo).isPresent())
         {
             System.out.println("Wallet Already exists for "+phoneNo);
             return null;
         }
 
+        //Create New Wallet
         Wallet wallet=new Wallet();
         wallet.setWalletId(phoneNo);
         wallet.setAmount(100);
 
         System.out.println("Wallet created for "+phoneNo);
+        //saving and returning Wallet
         return walletInterface.save(wallet);
     }
 
+    //finding All Wallets
     @GetMapping
     public @ResponseBody
     Iterable<Wallet> getAll(){
@@ -39,6 +46,7 @@ public class WalletController {
         return walletInterface.findAll();
     }
 
+    //Updating/Adding Balance
     @PutMapping
     public Wallet addBalance(@RequestParam Long phoneNo,@RequestParam int bal){
         System.out.println("PUT Wallet API");

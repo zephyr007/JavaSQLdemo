@@ -16,12 +16,14 @@ import java.util.Iterator;
 @Controller
 public class TransController{
 
+    //Instance of Services
     @Autowired
     public TransService transService;
 
     @Autowired
     private WalletService walletInterface;
 
+    //Making Transaction Object and Saving
     @PostMapping(path = "/transaction")
     public @ResponseBody
     Trans makeTxn(@RequestBody TransWithoutID transWithoutID){
@@ -57,6 +59,7 @@ public class TransController{
         return transService.feedInDB(trans);
     }
 
+    //Get All Transaction
     @GetMapping(path = "/transaction")
     public @ResponseBody
     Iterable<Trans> getAllTrans(){
@@ -64,6 +67,7 @@ public class TransController{
         return transService.getAll();
     }
 
+    //Getting Status from Transaction Using ID
     @GetMapping(path = "/transactionStatus")
     public @ResponseBody
     Trans checkTxnStatus(@RequestParam Integer TxnId){
@@ -78,6 +82,7 @@ public class TransController{
         return null;
     }
 
+    //Print All Transaction by Mobile No
     @GetMapping(path = "/transactionsBy")
     public @ResponseBody
     ArrayList<Trans> getAlltrans(@RequestParam Long userId){
