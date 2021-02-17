@@ -16,6 +16,11 @@ import java.util.Iterator;
 @Controller
 public class TransController{
 
+    @GetMapping("/")
+    public String printHello(){
+        return "Welcome to the Wallet Application";
+    }
+
     //Instance of Services
     @Autowired
     public TransService transService;
