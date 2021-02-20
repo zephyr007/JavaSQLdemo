@@ -1,5 +1,10 @@
 # SpringBoot Jpa API 
 
+## Tutorials
+``
+JWT Spring Security:https://www.youtube.com/watch?v=X80nJ5T7YpE
+``
+
 ## 1.Java CRUD API
 
 ```REST application of user management using Spring Boot and Spring Data. This application will perform basic CRUD(Create, Read , Update , Delete) operations on the User table.
