@@ -1,11 +1,10 @@
-package com.example.Assignment2.Service;
+package com.example.Assignment2.Wallet.Service;
 
-import com.example.Assignment2.Models.Trans;
-import com.example.Assignment2.Repository.TransInterface;
+import com.example.Assignment2.Wallet.Models.Trans;
+import com.example.Assignment2.Wallet.Repository.TransInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

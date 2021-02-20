@@ -1,7 +1,7 @@
-package com.example.Assignment2.Controllers;
+package com.example.Assignment2.Wallet.Controllers;
 
-import com.example.Assignment2.Models.UserModel;
-import com.example.Assignment2.Repository.UserInterface;
+import com.example.Assignment2.Wallet.Models.UserModel;
+import com.example.Assignment2.Wallet.Repository.UserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

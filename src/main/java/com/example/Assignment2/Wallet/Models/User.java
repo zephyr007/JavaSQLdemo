@@ -1,7 +1,6 @@
-package com.example.Assignment2.Models;
+package com.example.Assignment2.Wallet.Models;
 
 import com.sun.istack.NotNull;
-import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

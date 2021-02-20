@@ -1,4 +1,4 @@
-package com.example.Assignment2.Models;
+package com.example.Assignment2.Wallet.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.UUID;
 
 @Getter
 @Setter

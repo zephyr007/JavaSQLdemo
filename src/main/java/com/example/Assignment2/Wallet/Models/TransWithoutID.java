@@ -1,4 +1,4 @@
-package com.example.Assignment2.Models;
+package com.example.Assignment2.Wallet.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

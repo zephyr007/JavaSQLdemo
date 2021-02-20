@@ -1,8 +1,8 @@
-package com.example.Assignment2.Controllers;
+package com.example.Assignment2.Wallet.Controllers;
 
-import com.example.Assignment2.Models.Wallet;
-import com.example.Assignment2.Repository.WalletInterface;
-import com.example.Assignment2.Service.WalletService;
+import com.example.Assignment2.Wallet.Models.Wallet;
+import com.example.Assignment2.Wallet.Repository.WalletInterface;
+import com.example.Assignment2.Wallet.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +30,7 @@ public class WalletController {
         //Create New Wallet
         Wallet wallet=new Wallet();
         wallet.setWalletId(phoneNo);
-        wallet.setAmount(100);
+//        wallet.setAmount(100);
 
         System.out.println("Wallet created for "+phoneNo);
         //saving and returning Wallet

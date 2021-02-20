@@ -1,7 +1,7 @@
 Milestone 3: 8 Feb 10 AM
 =========================
 
-Serve Traffic through load Balancer i.e Nginx.
+~Serve Traffic through load Balancer i.e Nginx.~
 All above apis should have JWT authentication
 Ingest Data in elasticSearch through Kafka.
 Serve transaction through ElasticSearch

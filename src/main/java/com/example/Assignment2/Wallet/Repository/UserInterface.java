@@ -1,6 +1,6 @@
-package com.example.Assignment2.Repository;
+package com.example.Assignment2.Wallet.Repository;
 
-import com.example.Assignment2.Models.UserModel;
+import com.example.Assignment2.Wallet.Models.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.repository.CrudRepository;
 

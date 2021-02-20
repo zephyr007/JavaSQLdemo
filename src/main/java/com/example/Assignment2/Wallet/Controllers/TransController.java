@@ -1,17 +1,16 @@
-package com.example.Assignment2.Controllers;
+package com.example.Assignment2.Wallet.Controllers;
 
-import com.example.Assignment2.Models.Trans;
-import com.example.Assignment2.Models.TransWithoutID;
-import com.example.Assignment2.Models.Wallet;
-import com.example.Assignment2.Repository.WalletInterface;
-import com.example.Assignment2.Service.TransService;
-import com.example.Assignment2.Service.WalletService;
+import com.example.Assignment2.Wallet.Models.Trans;
+import com.example.Assignment2.Wallet.Models.TransWithoutID;
+import com.example.Assignment2.Wallet.Models.Wallet;
+import com.example.Assignment2.Wallet.Repository.WalletInterface;
+import com.example.Assignment2.Wallet.Service.TransService;
+import com.example.Assignment2.Wallet.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 @Controller
 public class TransController{
