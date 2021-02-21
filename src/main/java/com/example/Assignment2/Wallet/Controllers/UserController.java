@@ -2,6 +2,7 @@ package com.example.Assignment2.Wallet.Controllers;
 
 import com.example.Assignment2.Wallet.Models.UserModel;
 import com.example.Assignment2.Wallet.Repository.UserInterface;
+//import com.example.Assignment2.Wallet.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,10 +37,9 @@ public class UserController {
                 return user;
             }
         }
-        userInterface.save(user);
         String res= "User Added at"+user.getId();
         System.out.println(res);
-        return user;
+        return userInterface.save(user);
     }
 
     //post mapping and requesting parameters
