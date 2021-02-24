@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeUnit;
+
 @RestController
 @RequestMapping("/elastic")
 public class TransKafkaElasticController {
@@ -32,11 +34,22 @@ public class TransKafkaElasticController {
 //        passedTrans=
 //    }
 
+    @GetMapping("/AllTrans")
+    public Iterable<TransElastic> getAll(){
+        return elasticService.getAllTrans();
+    }
+
     @PostMapping("/Trans")
     public TransElastic transWithKafkaElasti(@RequestBody TransWithoutID transWithoutID){
 
         Integer txnid=kafkaPublisher.publishTrans(transWithoutID);
         //wait for a sec here till its get updated to kafka
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
 
         System.out.println("Transaction passing to Elastic here");
         System.out.println("Consumed Transaction: " + passedTrans.getPayee_phone_number()+" to "+passedTrans.getPayer_phone_number()+" Amount: "+passedTrans.getAmount());

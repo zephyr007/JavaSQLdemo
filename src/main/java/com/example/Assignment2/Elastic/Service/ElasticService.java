@@ -16,6 +16,17 @@ public class ElasticService {
     @Autowired
     private TransService transService;
 
+//    public Iterable<TransElastic> getPayerNo(long payer){
+//        return (Iterable<TransElastic>) elasticSearchRepo.findAllBypayer(payer);
+//    }
+//
+//    public Iterable<TransElastic> getPayeeNo(long payee){
+//        return elasticSearchRepo.findAllBypayee(payee);
+//    }
+//    public Iterable<TransElastic>getAllTrans(){
+//        return elasticSearchRepo.findAll();
+//    }
+
     public TransElastic saveTrans(Integer txnid,TransWithoutID transWithoutID){
 
         Trans trans=transService.CheckTrans(transWithoutID);

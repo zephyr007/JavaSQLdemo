@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ElasticSearchRepo extends ElasticsearchRepository<TransElastic,Integer> {
 
+    TransElastic findAllBypayer(long payer);
+
+    Iterable<TransElastic> findAllBypayee(long payee);
 }

@@ -5,11 +5,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.sql.Timestamp;
 
-@Document(indexName = "my-application",indexStoreType = "TransElastic",shards = 2)
+@Document(indexName = "my-application1",indexStoreType = "TransElastic",shards = 1)
 public class TransElastic {
 
     @Id
-    public Integer TxnId;
+    public Integer txnId;
     public Long payer;
     public Long payee;
     public int amount;
@@ -17,7 +17,7 @@ public class TransElastic {
     public Boolean Status;
 
     public TransElastic(Integer txnId,Long payer, Long payee, int amount) {
-        TxnId = txnId;
+        this.txnId = txnId;
         this.payer = payer;
         this.payee = payee;
         this.amount = amount;
@@ -38,11 +38,11 @@ public class TransElastic {
     }
 
     public Integer getTxnId() {
-        return TxnId;
+        return txnId;
     }
 
     public void setTxnId(Integer txnId) {
-        TxnId = txnId;
+        txnId = txnId;
     }
 
     public Long getPayer() {
