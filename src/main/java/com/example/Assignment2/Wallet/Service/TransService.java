@@ -1,6 +1,8 @@
 package com.example.Assignment2.Wallet.Service;
 
 import com.example.Assignment2.Wallet.Models.Trans;
+import com.example.Assignment2.Wallet.Models.TransWithoutID;
+import com.example.Assignment2.Wallet.Models.Wallet;
 import com.example.Assignment2.Wallet.Repository.TransInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,46 @@ public class TransService {
     @Autowired
     private TransInterface transInterface;
 
+    @Autowired
+    private WalletService walletService;
+
     public Trans feedInDB(Trans trans){
         return transInterface.save(trans);
+    }
+
+    public Trans CheckTrans(TransWithoutID transWithoutID){
+        if(transWithoutID.getAmount()<0)
+        {
+            System.out.println("Invalid Amount");
+            return null;
+        }
+        if(!walletService.findById(transWithoutID.getPayee_phone_number()).isPresent()){
+            System.out.println("payee wallet doesn`t exits");
+            return null;
+        }
+        if(!walletService.findById(transWithoutID.getPayer_phone_number()).isPresent()){
+            System.out.println("payer wallet doesn`t exits");
+            return null;
+        }
+        Wallet walletpayer=walletService.findById(transWithoutID.getPayer_phone_number()).get();
+
+        if(walletpayer.getAmount()<transWithoutID.getAmount()){
+            System.out.println("Insufficient balance");
+            return null;
+        }
+        Wallet walletpayee=walletService.findById(transWithoutID.getPayee_phone_number()).get();
+
+        Trans trans=new Trans(transWithoutID.getPayer_phone_number(),
+                transWithoutID.getPayee_phone_number(),
+                transWithoutID.getAmount());
+
+        walletpayer.setAmount(walletpayer.getAmount()-transWithoutID.getAmount());
+        walletpayee.setAmount(walletpayee.getAmount()+transWithoutID.getAmount());
+
+        walletService.save(walletpayee);
+        walletService.save(walletpayer);
+
+        return trans;
     }
 
     public Iterable<Trans> getAll(){

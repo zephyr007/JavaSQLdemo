@@ -1,7 +1,6 @@
 package com.example.Assignment2.Wallet.Controllers;
 
 import com.example.Assignment2.Wallet.Models.Wallet;
-import com.example.Assignment2.Wallet.Repository.WalletInterface;
 import com.example.Assignment2.Wallet.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

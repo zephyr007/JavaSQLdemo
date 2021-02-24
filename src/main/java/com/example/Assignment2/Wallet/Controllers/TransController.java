@@ -3,7 +3,6 @@ package com.example.Assignment2.Wallet.Controllers;
 import com.example.Assignment2.Wallet.Models.Trans;
 import com.example.Assignment2.Wallet.Models.TransWithoutID;
 import com.example.Assignment2.Wallet.Models.Wallet;
-import com.example.Assignment2.Wallet.Repository.WalletInterface;
 import com.example.Assignment2.Wallet.Service.TransService;
 import com.example.Assignment2.Wallet.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 @Controller
 public class TransController{
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String printHello(){
         return "Welcome to the Wallet Application";
     }
@@ -33,38 +32,29 @@ public class TransController{
     Trans makeTxn(@RequestBody TransWithoutID transWithoutID){
         /*** Transaction Verification Steps**/
         System.out.println("Transaction API");
-        if(!walletInterface.findById(transWithoutID.getPayee_phone_number()).isPresent()){
-            System.out.println("payee wallet doesn`t exits");
+        Trans trans=transService.CheckTrans(transWithoutID);
+        if(trans==null){
             return null;
         }
-        if(!walletInterface.findById(transWithoutID.getPayer_phone_number()).isPresent()){
-            System.out.println("payer wallet doesn`t exits");
-            return null;
-        }
-        Wallet walletpayer=walletInterface.findById(transWithoutID.getPayer_phone_number()).get();
 
-        if(walletpayer.getAmount()<transWithoutID.getAmount()){
-            System.out.println("Insufficient balance");
-            return null;
-        }
-        Wallet walletpayee=walletInterface.findById(transWithoutID.getPayee_phone_number()).get();
-
-        Trans trans=new Trans(transWithoutID.getPayer_phone_number(),
-                transWithoutID.getPayee_phone_number(),
-                transWithoutID.getAmount());
-
-        walletpayer.setAmount(walletpayer.getAmount()-transWithoutID.getAmount());
-        walletpayee.setAmount(walletpayee.getAmount()+transWithoutID.getAmount());
-
-        walletInterface.save(walletpayee);
-        walletInterface.save(walletpayer);
+//        Wallet walletpayee=walletInterface.findById(transWithoutID.getPayee_phone_number()).get();
+//
+//        Trans trans=new Trans(transWithoutID.getPayer_phone_number(),
+//                transWithoutID.getPayee_phone_number(),
+//                transWithoutID.getAmount());
+//
+//        walletpayer.setAmount(walletpayer.getAmount()-transWithoutID.getAmount());
+//        walletpayee.setAmount(walletpayee.getAmount()+transWithoutID.getAmount());
+//
+//        walletInterface.save(walletpayee);
+//        walletInterface.save(walletpayer);
 
         System.out.println("Transaction Added");
         return transService.feedInDB(trans);
     }
 
     //Get All Transaction
-    @GetMapping(path = "/transaction")
+    @GetMapping(path = "/Alltransaction")
     public @ResponseBody
     Iterable<Trans> getAllTrans(){
         System.out.println("Get ALL Transaction API");
@@ -116,6 +106,8 @@ public class TransController{
 
         return list;
     }
+
+
 }
 /***
 * 2.API to transfer money from one wallet to another wallet (p2p).
