@@ -16,10 +16,12 @@ public class ElasticService {
     @Autowired
     private TransService transService;
 
-    public TransElastic saveTrans(TransWithoutID transWithoutID){
+    public TransElastic saveTrans(Integer txnid,TransWithoutID transWithoutID){
+
         Trans trans=transService.CheckTrans(transWithoutID);
 
-        TransElastic newTrans=new TransElastic(trans.getTxnId(),trans.getPayer(),trans.getPayee(),trans.getAmount());
+        TransElastic newTrans=new TransElastic(txnid,trans.getPayer(),trans.getPayee(),trans.getAmount());
+        newTrans.setStatus(true);
         elasticSearchRepo.save(newTrans);
 
         return newTrans;

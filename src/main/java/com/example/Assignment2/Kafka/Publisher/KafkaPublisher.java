@@ -24,12 +24,13 @@ public class KafkaPublisher {
     }
 
     @PostMapping("publish/Trans")
-    public String publishTrans(@RequestBody TransWithoutID transWithoutID){
+    public Integer publishTrans(@RequestBody TransWithoutID transWithoutID){
 
         Trans trans=transService.CheckTrans(transWithoutID);
         if(trans==null)
         {
-            return "Transaction Failed";
+            String res= "Transaction Failed";
+            System.out.println(res);
         }
 
         TransWithoutID newTrans=new TransWithoutID(trans.getPayer(),trans.getPayee(),trans.getAmount());
@@ -38,7 +39,7 @@ public class KafkaPublisher {
 
         String res="Transaction published ";
         System.out.println(res);
-        return res;
+        return trans.getTxnId();
     }
 
 }
