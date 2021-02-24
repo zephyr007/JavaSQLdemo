@@ -5,7 +5,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.sql.Timestamp;
 
-@Document(indexName = "my-application1",indexStoreType = "TransElastic",shards = 1)
+@Document(indexName = "my-application1",indexStoreType = "TransElastic",shards = 2)
 public class TransElastic {
 
     @Id
