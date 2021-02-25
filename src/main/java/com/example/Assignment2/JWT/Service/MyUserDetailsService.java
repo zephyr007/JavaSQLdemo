@@ -11,8 +11,19 @@ import java.util.ArrayList;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+    String username="foo";
+    String password="foo";
+
+    //we can also add Interface to store data on my SQl or Elastic search and feed it in loadUserByUsername
+    public void ChangeUsernamePassword(String u1,String p1){
+        username=u1;
+        password=p1;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new User("foo","foo",new ArrayList<>());
+        return new User(username,password,new ArrayList<>());
     }
+
+
 }

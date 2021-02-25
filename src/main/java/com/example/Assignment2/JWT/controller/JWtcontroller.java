@@ -48,4 +48,11 @@ public class JWtcontroller {
         return ResponseEntity.ok(new AuthRes(jwt));
     }
 
+    @PostMapping("/addAuth")
+    public String addAuth(@RequestBody AuthReq authReq) throws Exception{
+        userDetailsService.ChangeUsernamePassword(authReq.getUsername(),authReq.getPassword());
+        userDetailsService.loadUserByUsername(authReq.getUsername());
+        return "User Added";
+    }
+
 }

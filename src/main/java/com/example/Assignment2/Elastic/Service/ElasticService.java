@@ -23,6 +23,7 @@ public class ElasticService {
     public Iterable<TransElastic> getPayeeNo(long payee){
         return elasticSearchRepo.findAllBypayee(payee);
     }
+
     public Iterable<TransElastic>getAllTrans(){
         return elasticSearchRepo.findAll();
     }

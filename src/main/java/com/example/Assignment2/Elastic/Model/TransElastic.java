@@ -1,11 +1,17 @@
 package com.example.Assignment2.Elastic.Model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.sql.Timestamp;
 
-@Document(indexName = "my-application1",indexStoreType = "TransElastic",shards = 2)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(indexName = "my-application",indexStoreType = "Transactions",shards = 1)
 public class TransElastic {
 
     @Id
