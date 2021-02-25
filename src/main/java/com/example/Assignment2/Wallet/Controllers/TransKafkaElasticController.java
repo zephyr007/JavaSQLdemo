@@ -1,9 +1,11 @@
 package com.example.Assignment2.Wallet.Controllers;
 
 import com.example.Assignment2.Elastic.Model.TransElastic;
+import com.example.Assignment2.Elastic.Repo.ElasticSearchRepo;
 import com.example.Assignment2.Elastic.Service.ElasticService;
 import com.example.Assignment2.Kafka.Consumer.KafkaConsumer;
 import com.example.Assignment2.Kafka.Publisher.KafkaPublisher;
+import com.example.Assignment2.Wallet.Models.Trans;
 import com.example.Assignment2.Wallet.Models.TransWithoutID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,6 +23,9 @@ public class TransKafkaElasticController {
     @Autowired
     private ElasticService elasticService;
 
+    @Autowired
+    ElasticSearchRepo elasticSearchRepo;
+
     TransWithoutID passedTrans=new TransWithoutID();
 
     @KafkaListener(topics = "KafkaExample11",groupId = "group_json",containerFactory = "transWithoutIDKafkaListenerFactory")
@@ -34,15 +39,16 @@ public class TransKafkaElasticController {
 //        passedTrans=
 //    }
 
-    @GetMapping("/AllTrans")
+    @GetMapping("/allTrans")
     public Iterable<TransElastic> getAll(){
-        return elasticService.getAllTrans();
+        return elasticSearchRepo.findAll();
+//        return elasticService.getAllTrans();
     }
 
     @PostMapping("/Trans")
     public TransElastic transWithKafkaElasti(@RequestBody TransWithoutID transWithoutID){
 
-        Integer txnid=kafkaPublisher.publishTrans(transWithoutID);
+        Trans txn=kafkaPublisher.publishTrans(transWithoutID);
         //wait for a sec here till its get updated to kafka
 
         try {
@@ -56,7 +62,7 @@ public class TransKafkaElasticController {
 
 //        new TransElastic()
         /****PUT ELastic search Implementation here*****/
-        TransElastic t=elasticService.saveTrans(txnid,passedTrans);
+        TransElastic t=elasticService.saveTrans(txn);
 
         return t;
     }

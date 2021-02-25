@@ -24,7 +24,7 @@ public class KafkaPublisher {
     }
 
     @PostMapping("publish/Trans")
-    public Integer publishTrans(@RequestBody TransWithoutID transWithoutID){
+    public Trans publishTrans(@RequestBody TransWithoutID transWithoutID){
 
         Trans trans=transService.CheckTrans(transWithoutID);
         if(trans==null)
@@ -37,9 +37,9 @@ public class KafkaPublisher {
         kafkaTemplate.send(topic,newTrans);
         transService.feedInDB(trans);
 
-        String res="Transaction published ";
+        String res="Transaction published "+trans.Status;
         System.out.println(res);
-        return trans.getTxnId();
+        return trans;
     }
 
 }

@@ -24,6 +24,7 @@ public class TransService {
     }
 
     public Trans CheckTrans(TransWithoutID transWithoutID){
+        boolean checkflag=false;
         if(transWithoutID.getAmount()<0)
         {
             System.out.println("Invalid Amount");
@@ -41,7 +42,8 @@ public class TransService {
 
         if(walletpayer.getAmount()<transWithoutID.getAmount()){
             System.out.println("Insufficient balance");
-            return null;
+            checkflag=true;
+//            return null;
         }
         Wallet walletpayee=walletService.findById(transWithoutID.getPayee_phone_number()).get();
 
@@ -49,12 +51,18 @@ public class TransService {
                 transWithoutID.getPayee_phone_number(),
                 transWithoutID.getAmount());
 
-        walletpayer.setAmount(walletpayer.getAmount()-transWithoutID.getAmount());
-        walletpayee.setAmount(walletpayee.getAmount()+transWithoutID.getAmount());
+        if(checkflag!=true) {
 
-        walletService.save(walletpayee);
-        walletService.save(walletpayer);
+            walletpayer.setAmount(walletpayer.getAmount() - transWithoutID.getAmount());
+            walletpayee.setAmount(walletpayee.getAmount() + transWithoutID.getAmount());
 
+            walletService.save(walletpayee);
+            walletService.save(walletpayer);
+        }
+        else
+        {
+            trans.setStatus(false);
+        }
         return trans;
     }
 

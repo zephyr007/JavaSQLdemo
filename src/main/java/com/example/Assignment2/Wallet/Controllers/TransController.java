@@ -54,7 +54,7 @@ public class TransController{
     }
 
     //Get All Transaction
-    @GetMapping(path = "/Alltransaction")
+    @GetMapping(path = "/transactions")
     public @ResponseBody
     Iterable<Trans> getAllTrans(){
         System.out.println("Get ALL Transaction API");
@@ -69,7 +69,10 @@ public class TransController{
         if(transService.getTxn(TxnId).isPresent()){
             String res="";
             Trans trans= transService.getTxn(TxnId).get();
-            res+="Transaction Succesful ID:"+trans.getTxnId()+" payer: "+trans.getPayer()+" payee: "+trans.getPayee()+" amount: "+trans.getAmount();
+            if(trans.Status==true)
+                res+="Transaction Succesful ID:"+trans.getTxnId()+" payer: "+trans.getPayer()+" payee: "+trans.getPayee()+" amount: "+trans.getAmount();
+            else
+                res+="Transaction failed ID:"+trans.getTxnId()+" payer: "+trans.getPayer()+" payee: "+trans.getPayee()+" amount: "+trans.getAmount();
             System.out.println(res);
             return trans;
         }

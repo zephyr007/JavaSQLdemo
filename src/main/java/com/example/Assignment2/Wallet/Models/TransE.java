@@ -1,4 +1,4 @@
-//package com.example.Assignment2.Wallet.Models;
+package com.example.Assignment2.Wallet.Models;
 //
 //import lombok.Getter;
 //import lombok.NoArgsConstructor;

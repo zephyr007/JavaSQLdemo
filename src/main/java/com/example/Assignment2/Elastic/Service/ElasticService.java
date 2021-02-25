@@ -28,12 +28,12 @@ public class ElasticService {
         return elasticSearchRepo.findAll();
     }
 
-    public TransElastic saveTrans(Integer txnid,TransWithoutID transWithoutID){
+    public TransElastic saveTrans(Trans trans){
 
-        Trans trans=transService.CheckTrans(transWithoutID);
+//        Trans trans=transService.CheckTrans(transWithoutID);
 
-        TransElastic newTrans=new TransElastic(txnid,trans.getPayer(),trans.getPayee(),trans.getAmount());
-        newTrans.setStatus(true);
+        TransElastic newTrans=new TransElastic(trans.getTxnId(),trans.getPayer(),trans.getPayee(),trans.getAmount());
+        newTrans.setStatus(trans.Status);
 
         elasticSearchRepo.save(newTrans);
         System.out.println("Transaction Saved on Elastic: "+newTrans.txnId+" saved on ELasticSearch");

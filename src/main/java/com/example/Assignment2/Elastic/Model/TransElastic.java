@@ -1,12 +1,13 @@
 package com.example.Assignment2.Elastic.Model;
 
+import com.sun.jmx.snmp.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import java.sql.Timestamp;
+
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class TransElastic {
     public Long payer;
     public Long payee;
     public int amount;
-    public Timestamp timestamp;
+//    public Timestamp timestamp;
     public Boolean Status;
 
     public TransElastic(Integer txnId,Long payer, Long payee, int amount) {
@@ -28,7 +29,7 @@ public class TransElastic {
         this.payee = payee;
         this.amount = amount;
         Status=true;
-        timestamp=new Timestamp(System.currentTimeMillis());
+//        timestamp=new Timestamp(System.currentTimeMillis());
     }
 
     public Boolean getStatus() {
@@ -39,9 +40,9 @@ public class TransElastic {
         Status = status;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
+//    public Timestamp getTimestamp() {
+//        return timestamp;
+//    }
 
     public Integer getTxnId() {
         return txnId;
