@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TransInterface extends JpaRepository<Trans,Integer> {
-
     public Iterable<Trans> findByTxnId(Integer txnId);
     public Iterable<Trans> findByPayee(Long payee);
     public Iterable<Trans> findByPayer(Long payer);
-
 }

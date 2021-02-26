@@ -41,11 +41,11 @@ public class TransKafkaElasticController {
 
     @GetMapping("/allTrans")
     public Iterable<TransElastic> getAll(){
-        return elasticSearchRepo.findAll();
+        return elasticService.getAllTrans();
 //        return elasticService.getAllTrans();
     }
 
-    @PostMapping("/Trans")
+    @PostMapping("/transaction")
     public TransElastic transWithKafkaElasti(@RequestBody TransWithoutID transWithoutID){
 
         Trans txn=kafkaPublisher.publishTrans(transWithoutID);

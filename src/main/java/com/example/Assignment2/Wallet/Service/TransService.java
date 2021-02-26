@@ -7,6 +7,7 @@ import com.example.Assignment2.Wallet.Repository.TransInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class TransService {
         return transInterface.save(trans);
     }
 
+//    @Transactional :Look into it
     public Trans CheckTrans(TransWithoutID transWithoutID){
         boolean checkflag=false;
         if(transWithoutID.getAmount()<0)
@@ -56,6 +58,7 @@ public class TransService {
             walletpayer.setAmount(walletpayer.getAmount() - transWithoutID.getAmount());
             walletpayee.setAmount(walletpayee.getAmount() + transWithoutID.getAmount());
 
+            //Locking Funda: lock :Saving into Database @Transational: how database transactions work
             walletService.save(walletpayee);
             walletService.save(walletpayer);
         }

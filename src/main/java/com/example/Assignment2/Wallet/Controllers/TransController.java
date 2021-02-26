@@ -54,7 +54,7 @@ public class TransController{
     }
 
     //Get All Transaction
-    @GetMapping(path = "/transactions")
+    @GetMapping(path = "/transaction")
     public @ResponseBody
     Iterable<Trans> getAllTrans(){
         System.out.println("Get ALL Transaction API");
@@ -80,7 +80,7 @@ public class TransController{
     }
 
     //Print All Transaction by Mobile No
-    @GetMapping(path = "/transactionsBy")
+    @GetMapping(path = "/transactionBy")
     public @ResponseBody
     ArrayList<Trans> getAlltrans(@RequestParam Long userId){
         System.out.println("Transaction Summary of "+userId);

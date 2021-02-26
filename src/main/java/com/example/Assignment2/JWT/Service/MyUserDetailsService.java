@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class MyUserDetailsService implements UserDetailsService {
 
     String username="foo";
+    //Hash UserPassword (Update):1 way hash :Secret key: password and public key : username Hash=>
+    // Sha256, Bcyripct : Aur other hashing
     String password="foo";
 
     //we can also add Interface to store data on my SQl or Elastic search and feed it in loadUserByUsername

@@ -50,7 +50,6 @@ public class UserModel {
         this.emailID = userWithoutID.getEmailID();
         this.address1 = userWithoutID.getAddress1();
         this.address2 = userWithoutID.getAddress2();
-
     }
 
 //    public UserModel(String userName, String firstName, String lastName, String mobileNumber, String emailID, String address1, String address2) {
