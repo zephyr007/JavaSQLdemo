@@ -20,6 +20,11 @@ url:http://localhost:8080/user?userId=<userID>
 METHOD: GET
 Result: ashutosh,rathor, 999999999, ashutosh.rathor@paytm.com
 
+2.API calls that returns All Users
+url:http://localhost:8080/allUsers
+Method: GET
+Result: return list of all Users so far
+
 3.Update API
 url:http://localhost:8080/user
 requestParam: userID
