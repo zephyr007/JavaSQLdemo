@@ -9,11 +9,13 @@ import com.example.Assignment2.Wallet.Models.Trans;
 import com.example.Assignment2.Wallet.Models.TransWithoutID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.TimeUnit;
 
 @RestController
+@Service
 @RequestMapping("/elastic")
 public class TransKafkaElasticController {
 
@@ -26,14 +28,18 @@ public class TransKafkaElasticController {
     @Autowired
     ElasticSearchRepo elasticSearchRepo;
 
-    TransWithoutID passedTrans=new TransWithoutID();
+    @Autowired
+    KafkaConsumer kafkaConsumer;
 
-    @KafkaListener(topics = "KafkaExample11",groupId = "group_json",containerFactory = "transWithoutIDKafkaListenerFactory")
-    public void getTransactionsFromKafka(TransWithoutID user1) {
-        TransWithoutID user=new TransWithoutID(user1.getPayer_phone_number(),user1.getPayee_phone_number(), user1.getAmount());
-        System.out.println("Consumed Transaction: " + user.getPayee_phone_number()+" to "+user.getPayer_phone_number()+" Amount: "+user.getAmount());
-        passedTrans=user;
-    }
+//    TransWithoutID passedTrans=new TransWithoutID();
+//
+//    @KafkaListener(topics = "KafkaExample11",groupId = "group_json",containerFactory = "transWithoutIDKafkaListenerFactory")
+//    public TransWithoutID getTransactionsFromKafka(TransWithoutID user1) {
+//        TransWithoutID user=new TransWithoutID(user1.getPayer_phone_number(),user1.getPayee_phone_number(), user1.getAmount());
+//        System.out.println("Consumed Transaction: " + user.getPayee_phone_number()+" to "+user.getPayer_phone_number()+" Amount: "+user.getAmount());
+//        passedTrans=user;
+//        return passedTrans;
+//    }
 
 //    public void updatePassedTrans(){
 //        passedTrans=
@@ -46,11 +52,11 @@ public class TransKafkaElasticController {
     }
 
     @PostMapping("/transaction")
-    public TransElastic transWithKafkaElasti(@RequestBody TransWithoutID transWithoutID){
+    public Trans transWithKafkaElasti(@RequestBody TransWithoutID transWithoutID){
 
         Trans txn=kafkaPublisher.publishTrans(transWithoutID);
+        TransWithoutID passedTrans=kafkaConsumer.getTransactionsFromKafka(transWithoutID);
         //wait for a sec here till its get updated to kafka
-
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException ie) {
@@ -58,12 +64,12 @@ public class TransKafkaElasticController {
         }
 
         System.out.println("Transaction passing to Elastic here");
-        System.out.println("Consumed Transaction: " + passedTrans.getPayee_phone_number()+" to "+passedTrans.getPayer_phone_number()+" Amount: "+passedTrans.getAmount());
+        System.out.println("Elastic Transaction: " + passedTrans.getPayee_phone_number()+" to "+passedTrans.getPayer_phone_number()+" Amount: "+passedTrans.getAmount());
 
 //        new TransElastic()
         /****PUT ELastic search Implementation here*****/
         TransElastic t=elasticService.saveTrans(txn);
 
-        return t;
+        return txn;
     }
 }

@@ -35,7 +35,7 @@ public class KafkaPublisher {
 
         TransWithoutID newTrans=new TransWithoutID(trans.getPayer(),trans.getPayee(),trans.getAmount());
         kafkaTemplate.send(topic,newTrans);
-        transService.feedInDB(trans);
+        transService.feedInDB(trans);//MySql
 
         String res="Transaction published "+trans.Status;
         System.out.println(res);

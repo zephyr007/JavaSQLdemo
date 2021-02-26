@@ -1,12 +1,18 @@
-Milestone 3: 8 Feb 10 AM
-=========================
 
-~Serve Traffic through load Balancer i.e Nginx.~
-All above apis should have JWT authentication
-Ingest Data in elasticSearch through Kafka.
-Serve transaction through ElasticSearch
-                       url:http://localhost:8080/transaction?userId=<userId>
-                       METHOD: GET
-                       Validations: userId should exist
-                       Note : this api should return in a pagination way.
+
+Hunny Sir Feedback On Project
+1.Password hashing and reterive and store UserId and Passwords
+
+Check Transaction database
+2.Integrate Mysql to call Elastic search as well **
+
+3.Feed Mysql Transaction to kafka service and then on to elastic search (abhi jaise )
+
+4.Also try to retrieve
+
+
+
+
+
+
 

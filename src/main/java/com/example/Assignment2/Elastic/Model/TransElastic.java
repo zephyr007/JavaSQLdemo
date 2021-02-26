@@ -20,6 +20,7 @@ public class TransElastic {
     public Long payer;
     public Long payee;
     public int amount;
+    //Find out this error as well
 //    public Timestamp timestamp;
     public Boolean Status;
 

@@ -26,16 +26,19 @@ public class TransController{
     @Autowired
     private WalletService walletInterface;
 
+    @Autowired
+    private TransKafkaElasticController transKafkaElasticController;
+
     //Making Transaction Object and Saving
     @PostMapping(path = "/transaction")
     public @ResponseBody
     Trans makeTxn(@RequestBody TransWithoutID transWithoutID){
         /*** Transaction Verification Steps**/
         System.out.println("Transaction API");
-        Trans trans=transService.CheckTrans(transWithoutID);
-        if(trans==null){
-            return null;
-        }
+//        Trans trans=transService.CheckTrans(transWithoutID);
+//        if(trans==null){
+//            return null;
+//        }
 
 //        Wallet walletpayee=walletInterface.findById(transWithoutID.getPayee_phone_number()).get();
 //
@@ -49,8 +52,21 @@ public class TransController{
 //        walletInterface.save(walletpayee);
 //        walletInterface.save(walletpayer);
 
-        System.out.println("Transaction Added");
-        return transService.feedInDB(trans);
+        /***
+         * Feed Kafka and elasti search here as well
+         *
+         * Keeping my MySQL as primrary
+         *
+         * ***/
+
+//        System.out.println("Transaction Added");
+//        return transService.feedInDB(trans);
+
+        /******
+         * This i have to ask if its okay do it this way
+         * But it works like a charm
+         * *****/
+        return transKafkaElasticController.transWithKafkaElasti(transWithoutID);
     }
 
     //Get All Transaction
